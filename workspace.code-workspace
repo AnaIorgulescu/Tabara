@@ -1,0 +1,27 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "terminal.integrated.windowsEnableConpty": false,
+        "editor.wordBasedSuggestions": false,
+		"git.postCommitCommand": "push",
+		"git.enableSmartCommit": true,
+        "editor.snippetSuggestions": "top",
+        "editor.autoSurround": "never",
+        //"files.autoSave": "onFocusChange"
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "[javascript]": {
+            "editor.formatOnSave": true
+        },
+        "files.exclude": {
+            "node_modules/": true,
+            "dist/": true,
+            ".github/": true,
+            ".vscode/": true,
+        }
+    }
+}
