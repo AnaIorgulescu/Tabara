@@ -17,6 +17,7 @@ export default class Mage extends Phaser.GameObjects.Sprite {
 
     (this.body as Phaser.Physics.Arcade.Body).setSize(30, 54);
     (this.body as Phaser.Physics.Arcade.Body).setOffset(70, 57);
+    (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
 
     this.anims.play('mage-idle-anim');
     this.heroState = 'idle';
@@ -48,11 +49,11 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         }
 
         if(this.heroState == 'idle' && this.animState != 'idle'){
-            this.anims.play('knight-idle-anim');
+            this.anims.play('mage-idle-anim');
             this.animState = 'idle';
         }
         if(this.heroState == 'walk' && this.animState != 'walk'){
-            this.anims.play('knight-walk-anim');
+            this.anims.play('mage-walk-anim');
             this.animState = 'walk';
         }
     }

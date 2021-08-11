@@ -8,8 +8,8 @@ export default class Level2 extends Phaser.Scene {
 
   preload() {
     this.load.image('rogue-hero', 'assets/rogue/rogue.png')
-    this.load.spritesheet('rogue-idle-sprite', 'assets/rogue/idle.png', { frameWidth: 171, frameHeight: 121 })
-    this.load.spritesheet('rogue-walk-sprite', 'assets/rogue/walk.png', { frameWidth: 171, frameHeight: 121 })
+    this.load.spritesheet('rogue-idle-sprite', 'assets/rogue/idle.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('rogue-walk-sprite', 'assets/rogue/walk.png', { frameWidth: 171, frameHeight: 128 })
   }
   create() {
     this.anims.create({

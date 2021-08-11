@@ -16,6 +16,7 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
     
         (this.body as Phaser.Physics.Arcade.Body).setSize(30, 54);
         (this.body as Phaser.Physics.Arcade.Body).setOffset(70, 57);
+        (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
         (this.body as Phaser.Physics.Arcade.Body).setDragX(2000);
     
         this.anims.play('rogue-idle-anim');

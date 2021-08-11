@@ -8,8 +8,8 @@ export default class Level1 extends Phaser.Scene {
 
   preload() {
     this.load.image('mage-hero', 'assets/mage/mage.png')
-    this.load.spritesheet('mage-idle-sprite', 'assets/mage/idle.png', { frameWidth: 171, frameHeight: 121 })
-    this.load.spritesheet('mage-walk-sprite', 'assets/mage/walk.png', { frameWidth: 171, frameHeight: 121 })
+    this.load.spritesheet('mage-idle-sprite', 'assets/mage/idle.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('mage-walk-sprite', 'assets/mage/walk.png', { frameWidth: 171, frameHeight: 128 })
   }
   create() {
     this.anims.create({

@@ -1,7 +1,6 @@
 import Knight from '../objects/knight'
 
 export default class Level1 extends Phaser.Scene {
-  fpsText
 
   constructor() {
     super({ key: 'level3' })
@@ -9,8 +8,8 @@ export default class Level1 extends Phaser.Scene {
 
   preload() {
     this.load.image('knight-hero', 'assets/knight/knight.png')
-    this.load.spritesheet('knight-idle-sprite', 'assets/knight/idle.png', { frameWidth: 171, frameHeight: 121 })
-    this.load.spritesheet('knight-walk-sprite', 'assets/knight/walk.png', { frameWidth: 171, frameHeight: 121 })
+    this.load.spritesheet('knight-idle-sprite', 'assets/knight/idle.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('knight-walk-sprite', 'assets/knight/walk.png', { frameWidth: 171, frameHeight: 128 })
   }
   create() {
     this.anims.create({
