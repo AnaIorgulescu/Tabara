@@ -4,7 +4,7 @@ export default class Level1 extends Phaser.Scene {
   fpsText
 
   constructor() {
-    super({ key: 'level1' })
+    super({ key: 'level3' })
   }
 
   preload() {

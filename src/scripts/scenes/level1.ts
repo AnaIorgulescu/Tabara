@@ -1,7 +1,6 @@
 import Mage from '../objects/mage'
 
 export default class Level1 extends Phaser.Scene {
-  fpsText
 
   constructor() {
     super({ key: 'level1' })
