@@ -35,8 +35,7 @@
     "author": "Yannick Deubel (https://github.com/yandeu)"
   },
   "engines": {
-    "//": "\"node\": \">=12\"",
-    "node": "12.x",
+    "node": ">=12.x",
     "npm": "6.x"
   },
   "license": "MIT",
