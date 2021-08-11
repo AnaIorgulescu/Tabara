@@ -14,7 +14,7 @@ export default class Level1 extends Phaser.Scene {
   create() {
     this.anims.create({
       key: 'mage-idle-anim',
-      frames: [{ frame: 0, key: 'hero', duration: 5000 }, 
+      frames: [{ frame: 0, key: 'mage-hero', duration: 5000 }, 
       ...this.anims.generateFrameNumbers('mage-idle-sprite', {})],
       frameRate: 6,
       repeat: -1
