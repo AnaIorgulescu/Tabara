@@ -4,12 +4,12 @@ export default class Level1 extends Phaser.Scene {
   fpsText
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({ key: 'level1' })
   }
 
   preload() {
-    this.load.image('hero','assets/hero/mage.png');
-    this.load.spritesheet('idle-sprite' , 'assets/hero/idle.png' , {frameWidth:171,frameHeight:121});
+    this.load.image('hero','assets/mage/mage.png');
+    this.load.spritesheet('idle-sprite' , 'assets/mage/idle.png' , {frameWidth:171,frameHeight:121});
   }
   create() {
     this.anims.create({

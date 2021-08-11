@@ -1,5 +1,7 @@
 import 'phaser'
 import Level1 from './scenes/level1'
+import Level2 from './scenes/level2'
+import Level3 from './scenes/level3'
 import StartScreen from './scenes/startScreen'
 
 const DEFAULT_WIDTH = 1280
@@ -18,7 +20,7 @@ const config = {
   render: {
     pixelArt: true
   },
-  scene: [StartScreen, Level1],
+  scene: [StartScreen, Level1, Level2, Level3],
   physics: {
     default: 'arcade',
     arcade: {
