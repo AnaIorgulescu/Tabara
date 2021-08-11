@@ -1,6 +1,7 @@
 import 'phaser'
 
 export default class Mage extends Phaser.GameObjects.Sprite {
+  
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'mage');
     scene.add.existing(this);

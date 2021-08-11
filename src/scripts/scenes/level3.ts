@@ -1,31 +1,26 @@
-export default class Level3 extends Phaser.Scene {
+import Knight from '../objects/knight'
+
+export default class Level1 extends Phaser.Scene {
   fpsText
 
   constructor() {
-    super({ key: 'level3' })
+    super({ key: 'level1' })
   }
 
   preload() {
-    this.load.image('hero', 'assets/knight/knight.png')
-    this.load.spritesheet('idle-sprite', 'assets/knight/idle.png', { frameWidth: 171, frameHeight: 121 })
+    this.load.image('knight-hero', 'assets/knight/knight.png')
+    this.load.spritesheet('knight-idle-sprite', 'assets/knight/idle.png', { frameWidth: 171, frameHeight: 121 })
   }
-
   create() {
     this.anims.create({
-      key: 'idle-anim',
-      frames: [{ frame: 0, key: 'hero', duration: 5000 }, ...this.anims.generateFrameNumbers('idle-sprite', {})],
+      key: 'knight-idle-anim',
+      frames: [{ frame: 0, key: 'knight-hero', duration: 5000 }, 
+      ...this.anims.generateFrameNumbers('knight-idle-sprite', {})],
       frameRate: 6,
       repeat: -1
     })
 
-    let hero = this.physics.add.sprite(171, 128, 'hero')
-    hero.body.setCollideWorldBounds(true)
-
-    hero.body.setSize(30, 54)
-    hero.body.setOffset(70, 57)
-
-    hero.anims.play('idle-anim')
-
+    let hero = new Knight(this, 10, 10)
     this.cameras.main.fadeIn()
   }
 
