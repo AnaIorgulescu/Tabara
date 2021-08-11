@@ -16,7 +16,7 @@
     "files.autoSaveDelay": 1000,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     //"[javascript]": {
-    "editor.formatOnSave": true,
+    //"editor.formatOnSave": true,
     //}
     "files.exclude": {
       "node_modules/": true,
