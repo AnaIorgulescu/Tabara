@@ -20,7 +20,7 @@ export default class Level1 extends Phaser.Scene {
       repeat: -1
     })
 
-    let hero = new Mage(this, 10, 10)
+    let hero = new Mage(this, 100, 100)
     this.cameras.main.fadeIn()
   }
 
