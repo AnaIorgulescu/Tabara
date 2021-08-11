@@ -48,11 +48,11 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         }
 
         if(this.heroState == 'idle' && this.animState != 'idle'){
-            this.anims.play('mage-idle-anim');
+            this.anims.play('knight-idle-anim');
             this.animState = 'idle';
         }
         if(this.heroState == 'walk' && this.animState != 'walk'){
-            this.anims.play('mage-walk-anim');
+            this.anims.play('knight-walk-anim');
             this.animState = 'walk';
         }
     }
