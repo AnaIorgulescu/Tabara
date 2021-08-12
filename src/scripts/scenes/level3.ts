@@ -10,6 +10,7 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('knight-hero', 'assets/knight/knight.png')
     this.load.spritesheet('knight-idle-sprite', 'assets/knight/idle.png', { frameWidth: 171, frameHeight: 128 })
     this.load.spritesheet('knight-walk-sprite', 'assets/knight/walk.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('knight-jump-sprite', 'assets/knight/jump.png', { frameWidth: 171, frameHeight: 128 })
   }
   create() {
     this.anims.create({
@@ -24,6 +25,12 @@ export default class Level1 extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('knight-walk-sprite', {}),
       frameRate: 6,
       repeat: -1
+    });
+    this.anims.create({
+      key: 'knight-jump-anim',
+      frames: this.anims.generateFrameNumbers('knight-jump-sprite', {}),
+      frameRate: 20 ,
+      repeat: 0
     });
 
     let hero = new Knight(this, 10, 10)
