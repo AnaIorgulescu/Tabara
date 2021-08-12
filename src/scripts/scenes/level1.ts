@@ -63,7 +63,7 @@ export default class Level1 extends Phaser.Scene {
         let battlegroundLayer3 = map.createLayer('wallpaper3', background3);
         battlegroundLayer3.setScrollFactor(0.5, 1);
         let battlegroundLayer4 = map.createLayer('wallpaper4', background4);
-        battlegroundLayer4.setScrollFactor(0.7, 1);
+        battlegroundLayer4.setScrollFactor(0.7  , 1);
         let battlegroundLayer5 = map.createLayer('wallpaper5', background5);
         battlegroundLayer5.setScrollFactor(0.9, 1);
 
