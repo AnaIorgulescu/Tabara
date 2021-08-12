@@ -63,6 +63,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-500);
             this.heroState = 'double-jump';
         }
+        
 
         
 
