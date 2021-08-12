@@ -4,6 +4,7 @@ export default class Mage extends Phaser.GameObjects.Sprite {
 
     rightKey: Phaser.Input.Keyboard.Key;
     leftKey: Phaser.Input.Keyboard.Key;
+    upKey: Phaser.Input.Keyboard.Key;
     
     heroState:String;
     animState:String;
@@ -24,28 +25,37 @@ export default class Mage extends Phaser.GameObjects.Sprite {
     this.animState = 'idle';
     this.rightKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);      
     this.leftKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);                                
-                
+    this.upKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);    
+    
     (this.body as Phaser.Physics.Arcade.Body).setDragX(2000);
   }
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
+        //dreapta
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(500);
             this.heroState = 'walk';
             this.setFlipX(false);
         } 
-      
+        //stanga
         if (this.leftKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(-500);
             this.heroState = 'walk';
             this.setFlipX(true);
         }
-        if (this.leftKey.isUp && this.rightKey.isUp){
+        //idle
+        if (this.leftKey.isUp && this.rightKey.isUp && (this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0){
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(0);
             this.heroState = 'idle';
+        }
+        //jump
+        if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0 && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-300);
+            this.heroState='jump';
+
         }
 
         if(this.heroState == 'idle' && this.animState != 'idle'){
@@ -55,6 +65,10 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if(this.heroState == 'walk' && this.animState != 'walk'){
             this.anims.play('mage-walk-anim');
             this.animState = 'walk';
+        }
+        if(this.heroState == 'jump' &&  this.animState != 'jump'){
+            this.anims.play('mage-jump-anim');
+            this.animState = 'jump';
         }
     }
 }
