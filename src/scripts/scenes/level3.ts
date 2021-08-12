@@ -17,6 +17,11 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('tileset-bush', 'assets/tiles/level3-bush.png');
     this.load.image('tileset-trees', 'assets/tiles/level3-trees.png');
     this.load.image('tileset-tiles', 'assets/tiles/level3-tiles.png');
+
+    this.load.image('lvl1-background4', 'assets/wallpapers/snowy-forest/background4.png');
+    this.load.image('lvl1-background3', 'assets/wallpapers/snowy-forest/background3.png');
+    this.load.image('lvl1-background2', 'assets/wallpapers/snowy-forest/background2.png');
+    this.load.image('lvl1-background1', 'assets/wallpapers/snowy-forest/background1.png');
   }
   create() {
     this.anims.create({
@@ -49,6 +54,21 @@ export default class Level1 extends Phaser.Scene {
 
 
     let map = this.make.tilemap({key: 'level3-tilemap'});
+
+    let background4 = map.addTilesetImage('wallpaper4', 'lvl1-background4');
+    let background3 = map.addTilesetImage('wallpaper3', 'lvl1-background3');
+    let background2 = map.addTilesetImage('wallpaper2', 'lvl1-background2');
+    let background1 = map.addTilesetImage('wallpaper1', 'lvl1-background1');
+
+    let battlegroundLayer1 = map.createLayer('wallpaper1', background1);
+    battlegroundLayer1.setScrollFactor(0.0, 1);
+    let battlegroundLayer2 = map.createLayer('wallpaper2', background2);
+    battlegroundLayer2.setScrollFactor(0.2, 1);
+    let battlegroundLayer3 = map.createLayer('wallpaper3', background3);
+    battlegroundLayer3.setScrollFactor(0.4, 1);
+    let battlegroundLayer4 = map.createLayer('wallpaper4', background4);
+    battlegroundLayer4.setScrollFactor(0.6, 1);
+
     let trees = map.addTilesetImage('trees', 'tileset-trees');
     let bush = map.addTilesetImage('bush', 'tileset-bush');
     let tiles = map.addTilesetImage('tiles', 'tileset-tiles');

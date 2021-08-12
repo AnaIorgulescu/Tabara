@@ -8,13 +8,19 @@ export default class Level2 extends Phaser.Scene {
 
   preload() {
     this.load.image('rogue-hero', 'assets/rogue/rogue.png')
-    this.load.spritesheet('rogue-idle-sprite', 'assets/rogue/idle.png', { frameWidth: 171, frameHeight: 128 })
-    this.load.spritesheet('rogue-walk-sprite', 'assets/rogue/walk.png', { frameWidth: 171, frameHeight: 128 })
-    this.load.spritesheet('rogue-jump-sprite', 'assets/rogue/jump.png', { frameWidth: 171, frameHeight: 128 })
-    this.load.spritesheet('rogue-double-jump-sprite', 'assets/rogue/double-jump.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('rogue-idle-sprite', 'assets/rogue/idle.png', { frameWidth: 171, frameHeight: 128 });
+    this.load.spritesheet('rogue-walk-sprite', 'assets/rogue/walk.png', { frameWidth: 171, frameHeight: 128 });
+    this.load.spritesheet('rogue-jump-sprite', 'assets/rogue/jump.png', { frameWidth: 171, frameHeight: 128 });
+    this.load.spritesheet('rogue-double-jump-sprite', 'assets/rogue/double-jump.png', { frameWidth: 171, frameHeight: 128 });
+
     this.load.tilemapTiledJSON('level2-tilemap', 'assets/level2.json');
     this.load.image('tileset-details', 'assets/tiles/level2-details.png');
     this.load.image('tileset-tiles', 'assets/tiles/level2-tiles.png');
+
+    this.load.image('lvl1-background4', 'assets/wallpapers/dark-forest/background4.png');
+    this.load.image('lvl1-background3', 'assets/wallpapers/dark-forest/background3.png');
+    this.load.image('lvl1-background2', 'assets/wallpapers/dark-forest/background2.png');
+    this.load.image('lvl1-background1', 'assets/wallpapers/dark-forest/background1.png');
   }
     
   create() {
@@ -45,6 +51,21 @@ export default class Level2 extends Phaser.Scene {
       repeat: 0
     });
     let map = this.make.tilemap({key: 'level2-tilemap'});
+
+    let background4 = map.addTilesetImage('wallpaper4', 'lvl1-background4');
+    let background3 = map.addTilesetImage('wallpaper3', 'lvl1-background3');
+    let background2 = map.addTilesetImage('wallpaper2', 'lvl1-background2');
+    let background1 = map.addTilesetImage('wallpaper1', 'lvl1-background1');
+
+    let battlegroundLayer1 = map.createLayer('wallpaper1', background1);
+    battlegroundLayer1.setScrollFactor(0.0, 1);
+    let battlegroundLayer2 = map.createLayer('wallpaper2', background2);
+    battlegroundLayer2.setScrollFactor(0.2, 1);
+    let battlegroundLayer3 = map.createLayer('wallpaper3', background3);
+    battlegroundLayer3.setScrollFactor(0.4, 1);
+    let battlegroundLayer4 = map.createLayer('wallpaper4', background4);
+    battlegroundLayer4.setScrollFactor(0.6, 1);
+
     let details = map.addTilesetImage('details', 'tileset-details');
     let tiles = map.addTilesetImage('tiles', 'tileset-tiles');
 
