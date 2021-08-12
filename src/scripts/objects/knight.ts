@@ -36,25 +36,35 @@ export default class Knight extends Phaser.GameObjects.Sprite {
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(500);
-            this.heroState = 'walk';
+            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0){
+                this.heroState = 'walk';
+            }
             this.setFlipX(false);
         }
       
         if (this.leftKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(-500);
-            this.heroState = 'walk';
+            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
+                this.heroState = 'walk';
+            }
             this.setFlipX(true);
         }
-        if (this.leftKey.isUp && this.rightKey.isUp){
+        if (this.leftKey.isUp && this.rightKey.isUp && (this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0){
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(0);
             this.heroState = 'idle';
+        
         }
-        if(this.upKey.isDown){
-            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-2000);
-            this.heroState = 'jump';
-            
+        if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0 && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-300);
+            this.heroState='jump';
         }
+        if(this.heroState == 'jump' && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-500);
+            this.heroState = 'double-jump';
+        }
+
+        
 
 
 
@@ -69,6 +79,10 @@ export default class Knight extends Phaser.GameObjects.Sprite {
         if(this.heroState == 'jump' && this.animState != 'jump'){
             this.anims.play('knight-jump-anim');
             this.animState = 'jump';
+        }
+        if(this.heroState == 'double-jump' && this.animState != 'double-jump'){
+            this.anims.play('knight-double-jump-anim');
+            this.animState = 'double-jump';
         }
       }
 }
