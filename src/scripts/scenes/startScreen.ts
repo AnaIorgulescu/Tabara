@@ -10,11 +10,15 @@ export default class StartScreen extends Phaser.Scene {
         this.load.image('title20', 'assets/startscreen/level2-glow.png');
         this.load.image('title3', 'assets/startscreen/level3.png');
         this.load.image('title30', 'assets/startscreen/level3-glow.png');
+        this.load.image('bg', 'assets/bg.jpg');
     }
 
     create() {
         const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
         const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+
+        let bg = this.add.image(screenCenterX, screenCenterY, 'bg');
+        bg.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
 
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor('#ba5e18');
         let title = this.add.image(screenCenterX, 150, 'title');
