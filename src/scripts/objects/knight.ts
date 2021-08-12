@@ -31,7 +31,6 @@ export default class Knight extends Phaser.GameObjects.Sprite {
       }
     
       preUpdate(time:number , delta:number) {
-          console.log('tytyt');
         super.preUpdate(time, delta);
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
@@ -66,7 +65,6 @@ export default class Knight extends Phaser.GameObjects.Sprite {
         if((this.heroState == 'jump' || this.heroState == 'double-jump') && this.leftKey.isUp && this.rightKey.isUp) {
            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(0);
         }
-
 
         if(this.heroState == 'idle' && this.animState != 'idle'){
             this.anims.play('knight-idle-anim');

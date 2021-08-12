@@ -29,8 +29,6 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
         }
     
       preUpdate(time:number, delta:number) {
-
-        console.log('hi,you little boy');
           super.preUpdate(time, delta);
         if(this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(300,500);

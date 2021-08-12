@@ -75,7 +75,7 @@ export default class Level1 extends Phaser.Scene {
 
     let backgroundLayer = map.createLayer('background', [trees, bush, tiles]);
 
-    let hero = new Knight(this, 100, 100);
+    let hero = new Knight(this, 100, 177);
     let groundLayer = map.createLayer('ground', [trees, bush, tiles]);
 
     this.physics.add.collider(hero, groundLayer);

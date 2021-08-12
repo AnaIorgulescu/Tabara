@@ -24,7 +24,6 @@ export default class Level2 extends Phaser.Scene {
   }
     
   create() {
-    
     this.anims.create({
       key: 'rogue-idle-anim',
       frames: [{ frame: 0, key: 'rogue-hero', duration: 5000 }, 
@@ -71,7 +70,7 @@ export default class Level2 extends Phaser.Scene {
 
     let backgroundLayer = map.createLayer('background', [details, tiles]);
 
-    let hero = new Rogue(this, 100, 100);
+    let hero = new Rogue(this, 153, 913);
     let groundLayer = map.createLayer('ground', [ details, tiles]);
 
     this.physics.add.collider(hero, groundLayer);
