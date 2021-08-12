@@ -36,14 +36,18 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(500);
-            this.heroState = 'walk';
+            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
+                this.heroState = 'walk';
+            }
             this.setFlipX(false);
         } 
         //stanga
         if (this.leftKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(-500);
-            this.heroState = 'walk';
+            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
+                this.heroState = 'walk';
+            }
             this.setFlipX(true);
         }
         //idle
@@ -55,7 +59,11 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0 && Phaser.Input.Keyboard.JustDown(this.upKey)) {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-300);
             this.heroState='jump';
-
+        }
+        //double-jump
+        if(this.heroState == 'jump' && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-400);
+            this.heroState='double-jump';
         }
 
         if(this.heroState == 'idle' && this.animState != 'idle'){
@@ -69,6 +77,10 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if(this.heroState == 'jump' &&  this.animState != 'jump'){
             this.anims.play('mage-jump-anim');
             this.animState = 'jump';
+        }
+        if(this.heroState == 'double-jump' &&  this.animState != 'double-jump'){
+            this.anims.play('mage-double-jump-anim');
+            this.animState = 'double-jump';
         }
     }
 }

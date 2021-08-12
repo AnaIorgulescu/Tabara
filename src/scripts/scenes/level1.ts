@@ -11,6 +11,8 @@ export default class Level1 extends Phaser.Scene {
     this.load.spritesheet('mage-idle-sprite', 'assets/mage/idle.png', { frameWidth: 171, frameHeight: 128 })
     this.load.spritesheet('mage-walk-sprite', 'assets/mage/walk.png', { frameWidth: 171, frameHeight: 128 })
     this.load.spritesheet('mage-jump-sprite', 'assets/mage/jump.png', { frameWidth: 171, frameHeight: 128 })
+    this.load.spritesheet('mage-double-jump-sprite', 'assets/mage/double-jump.png', { frameWidth: 171, frameHeight: 128 })
+
   }
   create() {
     this.anims.create({
@@ -29,7 +31,13 @@ export default class Level1 extends Phaser.Scene {
     this.anims.create({
       key: 'mage-jump-anim',
       frames: this.anims.generateFrameNumbers('mage-jump-sprite', {}),
-      frameRate: 6,
+      frameRate: 10,
+      repeat: 0
+    })
+    this.anims.create({
+      key: 'mage-double-jump-anim',
+      frames: this.anims.generateFrameNumbers('mage-double-jump-sprite', {}),
+      frameRate: 20,
       repeat: 0
     })
 
