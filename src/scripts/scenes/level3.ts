@@ -15,7 +15,7 @@ export default class Level1 extends Phaser.Scene {
     
     this.load.tilemapTiledJSON('level3-tilemap', 'assets/level3.json');
     this.load.image('tileset-bush', 'assets/tiles/level3-bush.png');
-    this.load.image('tileset-trees', 'assets/tiles/level3-tree.png');
+    this.load.image('tileset-trees', 'assets/tiles/level3-trees.png');
     this.load.image('tileset-tiles', 'assets/tiles/level3-tiles.png');
   }
   create() {

@@ -44,7 +44,7 @@ export default class Level2 extends Phaser.Scene {
       frameRate: 20,
       repeat: 0
     });
-    let map = this.make.tilemap({key: 'level1-tilemap'});
+    let map = this.make.tilemap({key: 'level2-tilemap'});
     let details = map.addTilesetImage('details', 'tileset-details');
     let tiles = map.addTilesetImage('tiles', 'tileset-tiles');
 
