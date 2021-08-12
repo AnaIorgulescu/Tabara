@@ -1,87 +1,86 @@
-import 'phaser'
+import 'phaser';
 
 export default class Mage extends Phaser.GameObjects.Sprite {
-
     rightKey: Phaser.Input.Keyboard.Key;
     leftKey: Phaser.Input.Keyboard.Key;
     upKey: Phaser.Input.Keyboard.Key;
-    
-    heroState:String;
-    animState:String;
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'mage');
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
+    heroState: String;
+    animState: String;
 
-    (this.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+    constructor(scene: Phaser.Scene, x: number, y: number) {
+        super(scene, x, y, 'mage');
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
 
-    (this.body as Phaser.Physics.Arcade.Body).setSize(30, 54);
-    (this.body as Phaser.Physics.Arcade.Body).setOffset(70, 57);
-    (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
+        (this.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
 
-    this.anims.play('mage-idle-anim');
-    this.heroState = 'idle';
-    this.animState = 'idle';
-    this.rightKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);      
-    this.leftKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);                                
-    this.upKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);    
-    
-    (this.body as Phaser.Physics.Arcade.Body).setDragX(2000);
-  }
+        (this.body as Phaser.Physics.Arcade.Body).setSize(30, 54);
+        (this.body as Phaser.Physics.Arcade.Body).setOffset(70, 57);
+        (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200, 400);
 
-    preUpdate(time: number, delta: number) {        
+        this.anims.play('mage-idle-anim');
+        this.heroState = 'idle';
+        this.animState = 'idle';
+        this.rightKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.leftKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.upKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+        (this.body as Phaser.Physics.Arcade.Body).setDragX(2000);
+    }
+
+    preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
         //dreapta
         if (this.rightKey.isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
+            (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200, 400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(500);
-            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
+            if ((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
                 this.heroState = 'walk';
             }
             this.setFlipX(false);
-        } 
+        }
         //stanga
         if (this.leftKey.isDown) {
-            (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200,400);
+            (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200, 400);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(-500);
-            if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
+            if ((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
                 this.heroState = 'walk';
             }
             this.setFlipX(true);
         }
         //idle
-        if (this.leftKey.isUp && this.rightKey.isUp && (this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0){
+        if (this.leftKey.isUp && this.rightKey.isUp && (this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0) {
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(0);
             this.heroState = 'idle';
         }
         //jump
-        if((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0 && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+        if ((this.body as Phaser.Physics.Arcade.Body).onFloor() && (this.body as Phaser.Physics.Arcade.Body).velocity.y == 0 && Phaser.Input.Keyboard.JustDown(this.upKey)) {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-300);
-            this.heroState='jump';
+            this.heroState = 'jump';
         }
         //double-jump
-        if(this.heroState == 'jump' && Phaser.Input.Keyboard.JustDown(this.upKey)) {
+        if (this.heroState == 'jump' && Phaser.Input.Keyboard.JustDown(this.upKey)) {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-400);
-            this.heroState='double-jump';
+            this.heroState = 'double-jump';
         }
-        if((this.heroState == 'jump' || this.heroState == 'double-jump') && this.leftKey.isUp && this.rightKey.isUp) {
+        if ((this.heroState == 'jump' || this.heroState == 'double-jump') && this.leftKey.isUp && this.rightKey.isUp) {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityX(0);
         }
 
-        if(this.heroState == 'idle' && this.animState != 'idle'){
+        if (this.heroState == 'idle' && this.animState != 'idle') {
             this.anims.play('mage-idle-anim');
             this.animState = 'idle';
         }
-        if(this.heroState == 'walk' && this.animState != 'walk'){
+        if (this.heroState == 'walk' && this.animState != 'walk') {
             this.anims.play('mage-walk-anim');
             this.animState = 'walk';
         }
-        if(this.heroState == 'jump' &&  this.animState != 'jump'){
+        if (this.heroState == 'jump' && this.animState != 'jump') {
             this.anims.play('mage-jump-anim');
             this.animState = 'jump';
         }
-        if(this.heroState == 'double-jump' &&  this.animState != 'double-jump'){
+        if (this.heroState == 'double-jump' && this.animState != 'double-jump') {
             this.anims.play('mage-double-jump-anim');
             this.animState = 'double-jump';
         }
