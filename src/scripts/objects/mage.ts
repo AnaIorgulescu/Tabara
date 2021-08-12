@@ -30,7 +30,7 @@ export default class Mage extends Phaser.GameObjects.Sprite {
     (this.body as Phaser.Physics.Arcade.Body).setDragX(2000);
   }
 
-    preUpdate(time: number, delta: number) {
+    preUpdate(time: number, delta: number) {        
         super.preUpdate(time, delta);
         //dreapta
         if (this.rightKey.isDown) {
@@ -64,6 +64,9 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if(this.heroState == 'jump' && Phaser.Input.Keyboard.JustDown(this.upKey)) {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-400);
             this.heroState='double-jump';
+        }
+        if((this.heroState == 'jump' || this.heroState == 'double-jump') && this.leftKey.isUp && this.rightKey.isUp) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(0);
         }
 
         if(this.heroState == 'idle' && this.animState != 'idle'){

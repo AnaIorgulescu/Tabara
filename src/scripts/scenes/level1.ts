@@ -17,6 +17,12 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('tileset-bush', 'assets/tiles/level1-bush.png');
     this.load.image('tileset-rocks', 'assets/tiles/level1-rocks.png');
     this.load.image('tileset-tiles', 'assets/tiles/level1-tiles.png');
+
+    this.load.image('lvl1-background5', 'assets/wallpapers/magic-forest/background5.png');
+    this.load.image('lvl1-background4', 'assets/wallpapers/magic-forest/background4.png');
+    this.load.image('lvl1-background3', 'assets/wallpapers/magic-forest/background3.png');
+    this.load.image('lvl1-background2', 'assets/wallpapers/magic-forest/background2.png');
+    this.load.image('lvl1-background1', 'assets/wallpapers/magic-forest/background1.png');
   }
   create() {
     this.anims.create({
@@ -45,13 +51,31 @@ export default class Level1 extends Phaser.Scene {
       repeat: 0
     })
     let map = this.make.tilemap({key: 'level1-tilemap'});
+
+    let background5 = map.addTilesetImage('wallpaper5', 'lvl1-background5');
+    let background4 = map.addTilesetImage('wallpaper4', 'lvl1-background4');
+    let background3 = map.addTilesetImage('wallpaper3', 'lvl1-background3');
+    let background2 = map.addTilesetImage('wallpaper2', 'lvl1-background2');
+    let background1 = map.addTilesetImage('wallpaper1', 'lvl1-background1');
+
+    let battlegroundLayer1 = map.createLayer('wallpaper1', background1);
+    battlegroundLayer1.setScrollFactor(0.1, 1);
+    let battlegroundLayer2 = map.createLayer('wallpaper2', background2);
+    battlegroundLayer2.setScrollFactor(0.3, 1);
+    let battlegroundLayer3 = map.createLayer('wallpaper3', background3);
+    battlegroundLayer3.setScrollFactor(0.5, 1);
+    let battlegroundLayer4 = map.createLayer('wallpaper4', background4);
+    battlegroundLayer4.setScrollFactor(0.7, 1);
+    let battlegroundLayer5 = map.createLayer('wallpaper5', background5);
+    battlegroundLayer5.setScrollFactor(0.9, 1);
+
     let rocks = map.addTilesetImage('rocks', 'tileset-rocks');
     let bush = map.addTilesetImage('bush', 'tileset-bush');
     let tiles = map.addTilesetImage('tiles', 'tileset-tiles');
 
     let backgroundLayer = map.createLayer('background', [rocks, bush, tiles]);
 
-    let hero = new Mage(this, 100, 100);
+    let hero = new Mage(this, 411, 913);
     let groundLayer = map.createLayer('ground', [rocks, bush, tiles]);
 
     this.physics.add.collider(hero, groundLayer);

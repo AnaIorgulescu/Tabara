@@ -29,6 +29,7 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
         }
     
       preUpdate(time:number, delta:number) {
+
         console.log('hi,you little boy');
           super.preUpdate(time, delta);
         if(this.rightKey.isDown) {
@@ -60,7 +61,9 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
             (this.body as Phaser.Physics.Arcade.Body).setVelocityY(-500);
             this.herostate = 'double-jump'
         }
-
+        if((this.herostate == 'jump' || this.herostate == 'double-jump') && this.leftkey.isUp && this.rightKey.isUp) {
+            (this.body as Phaser.Physics.Arcade.Body).setVelocityX(0);
+        }
 
 
         if(this.herostate == 'walk' && this.animstate != 'walk'){
