@@ -53,7 +53,7 @@ export default class StartScreen extends Phaser.Scene {
       this.scene.start('level3')
     })
     // remove the loading screen
-    let loadingScreen = document.getElementById('loading-screen')
+    let loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
       loadingScreen.classList.add('transparent')
       this.time.addEvent({
@@ -63,6 +63,7 @@ export default class StartScreen extends Phaser.Scene {
           loadingScreen.remove()
         }
       })
-    }
+    };
+    this.cameras.main.fadeIn();
   }
 }
