@@ -12,6 +12,7 @@ export default class Level1 extends Phaser.Scene {
         this.load.spritesheet('knight-walk-sprite', 'assets/knight/walk.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('knight-jump-sprite', 'assets/knight/jump.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('knight-double-jump-sprite', 'assets/knight/double-jump.png', { frameWidth: 171, frameHeight: 128 });
+        this.load.spritesheet('knight-death-sprite', 'assets/knight/death.png', { frameWidth: 171, frameHeight: 128 });
 
         this.load.tilemapTiledJSON('level3-tilemap', 'assets/level3.json');
         this.load.spritesheet('tileset-bush', 'assets/tiles/level3-bush.png', {frameWidth:32, frameHeight:32});
@@ -47,6 +48,12 @@ export default class Level1 extends Phaser.Scene {
             key: 'knight-double-jump-anim',
             frames: this.anims.generateFrameNumbers('knight-double-jump-sprite', {}),
             frameRate: 20,
+            repeat: 0
+        });
+        this.anims.create({
+            key: 'knight-death-anim',
+            frames: this.anims.generateFrameNumbers('knight-death-sprite', {}),
+            frameRate: 10,
             repeat: 0
         });
 
@@ -93,7 +100,6 @@ export default class Level1 extends Phaser.Scene {
         }   
         this.physics.add.overlap(hero,spikeGroup,hero.kill, undefined, hero)
         
-
         let foregroundLayer = map.createLayer('foreground', [trees, bush, tiles]);
 
         this.cameras.main.startFollow(hero);
