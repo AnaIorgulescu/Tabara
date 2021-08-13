@@ -1,3 +1,4 @@
+import { GameObjects } from 'phaser';
 import Knight from '../objects/knight';
 
 export default class Level1 extends Phaser.Scene {
@@ -71,13 +72,26 @@ export default class Level1 extends Phaser.Scene {
 
         let backgroundLayer = map.createLayer('background', [trees, bush, tiles]);
 
-        let hero = new Knight(this, 100, 177);
+        let hero = new Knight(this, 20, 849);
         let groundLayer = map.createLayer('ground', [trees, bush, tiles]);
 
         this.physics.add.collider(hero, groundLayer);
         groundLayer.setCollisionBetween(trees.firstgid, trees.firstgid + trees.total, true);
         groundLayer.setCollisionBetween(bush.firstgid, bush.firstgid + bush.total, true);
         groundLayer.setCollisionBetween(tiles.firstgid, tiles.firstgid + tiles.total, true);
+
+        let objects = map.getObjectLayer('objects').objects;
+        let spikeGroup=this.physics.add.group({immovable:true,allowGravity:false});
+        for(let object of objects) {
+            if(object.type=='spike'){
+
+
+                let.spike= spikeGroup.create()
+
+
+            }
+        }
+        
 
         let foregroundLayer = map.createLayer('foreground', [trees, bush, tiles]);
 
