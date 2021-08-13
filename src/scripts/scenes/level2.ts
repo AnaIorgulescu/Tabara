@@ -75,6 +75,15 @@ export default class Level2 extends Phaser.Scene {
         groundLayer.setCollisionBetween(details.firstgid, details.firstgid + details.total, true);
         groundLayer.setCollisionBetween(tiles.firstgid, tiles.firstgid + tiles.total, true);
 
+        let objects = map.getObjectLayer('objects').objects;
+        let spikeGroup = this.physics.add.group({immovable: true, allowGravity: false})
+        for (let object of objects) {
+          if(object.type == 'spike'){
+             let spike = spikeGroup.create(object.x, object.y)
+          }
+        }
+
+
         let foregroundLayer = map.createLayer('foreground', [details, tiles]);
 
         this.cameras.main.startFollow(hero);
