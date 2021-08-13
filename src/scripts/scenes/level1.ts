@@ -92,7 +92,6 @@ export default class Level1 extends Phaser.Scene {
         let spikeGroup = this.physics.add.group({ immovable: true, allowGravity: false });
         for (let object of objects) {
             if (object.type == 'spike') {
-                console.log(object.gid + ' - ', tiles.firstgid);
                 let spike: Phaser.GameObjects.Sprite = spikeGroup.create(object.x, object.y, 'tileset-tiles', (object.gid || 0) - tiles.firstgid);
                 spike.setOrigin(0, 1);
                 (spike.body as Phaser.Physics.Arcade.Body).setSize(22, 22);

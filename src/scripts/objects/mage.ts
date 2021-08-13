@@ -101,7 +101,7 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if (this.heroState != 'dead') {
             this.animState = 'dead';
             this.heroState = 'dead';
-            this.anims.play('mage-death-sprite');
+            this.anims.play('mage-death-anim');
             (this.body as Phaser.Physics.Arcade.Body).stop();
             this.once(
                 Phaser.Animations.Events.ANIMATION_COMPLETE,
