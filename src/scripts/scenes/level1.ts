@@ -11,6 +11,7 @@ export default class Level1 extends Phaser.Scene {
         this.load.spritesheet('mage-walk-sprite', 'assets/mage/walk.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('mage-jump-sprite', 'assets/mage/jump.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('mage-double-jump-sprite', 'assets/mage/double-jump.png', { frameWidth: 171, frameHeight: 128 });
+        this.load.spritesheet('mage-death-sprite', 'assets/mage/death.png', { frameWidth: 171, frameHeight: 128 });
 
         this.load.tilemapTiledJSON('level1-tilemap', 'assets/level1.json');
         this.load.image('tileset-bush', 'assets/tiles/level1-bush.png');
@@ -46,6 +47,12 @@ export default class Level1 extends Phaser.Scene {
             key: 'mage-double-jump-anim',
             frames: this.anims.generateFrameNumbers('mage-double-jump-sprite', {}),
             frameRate: 20,
+            repeat: 0
+        });
+        this.anims.create({
+            key: 'mage-death-anim',
+            frames: this.anims.generateFrameNumbers('mage-death-sprite', {}),
+            frameRate: 10,
             repeat: 0
         });
         let map = this.make.tilemap({ key: 'level1-tilemap' });
@@ -85,10 +92,14 @@ export default class Level1 extends Phaser.Scene {
         let spikeGroup = this.physics.add.group({ immovable: true, allowGravity: false });
         for (let object of objects) {
             if (object.type == 'spike') {
-                let spike = spikeGroup.create(object.x, object.y, 'tileset-tiles', object.gid || 0 - tiles.firstgid);
+                console.log(object.gid + ' - ', tiles.firstgid);
+                let spike: Phaser.GameObjects.Sprite = spikeGroup.create(object.x, object.y, 'tileset-tiles', (object.gid || 0) - tiles.firstgid);
+                spike.setOrigin(0, 1);
+                (spike.body as Phaser.Physics.Arcade.Body).setSize(22, 22);
+                (spike.body as Phaser.Physics.Arcade.Body).setOffset(5, 10);
             }
         }
-
+        this.physics.add.overlap(hero, spikeGroup, hero.kill, undefined, hero);
         let foregroundLayer = map.createLayer('foreground', [rocks, bush, tiles]);
 
         this.cameras.main.startFollow(hero);
