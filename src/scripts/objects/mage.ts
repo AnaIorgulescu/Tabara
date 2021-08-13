@@ -8,8 +8,14 @@ export default class Mage extends Phaser.GameObjects.Sprite {
     heroState: String;
     animState: String;
 
+    initialX: number;
+    initialY: number;
+
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'mage');
+        this.initialX = x;
+        this.initialY = y;
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -31,6 +37,11 @@ export default class Mage extends Phaser.GameObjects.Sprite {
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
+
+        if (this.heroState == 'dead') {
+            return;
+        }
+
         //dreapta
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(200, 400);
@@ -83,6 +94,25 @@ export default class Mage extends Phaser.GameObjects.Sprite {
         if (this.heroState == 'double-jump' && this.animState != 'double-jump') {
             this.anims.play('mage-double-jump-anim');
             this.animState = 'double-jump';
+        }
+    }
+
+    kill() {
+        if (this.heroState != 'dead') {
+            this.animState = 'dead';
+            this.heroState = 'dead';
+            this.anims.play('mage-death-anim');
+            (this.body as Phaser.Physics.Arcade.Body).stop();
+            this.once(
+                Phaser.Animations.Events.ANIMATION_COMPLETE,
+                () => {
+                    this.setX(this.initialX);
+                    this.setY(this.initialY);
+                    (this.body as Phaser.Physics.Arcade.Body).updateFromGameObject();
+                    this.heroState = 'idle';
+                },
+                this
+            );
         }
     }
 }
