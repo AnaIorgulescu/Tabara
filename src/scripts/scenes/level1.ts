@@ -85,7 +85,7 @@ export default class Level1 extends Phaser.Scene {
         let spikeGroup = this.physics.add.group({ immovable: true, allowGravity: false });
         for (let object of objects) {
             if (object.type == 'spike') {
-                let spike = spikeGroup.create(object.x, object.y, 'tileset-tiles', object.gid - tiles.firstgid);
+                let spike = spikeGroup.create(object.x, object.y, 'tileset-tiles', object.gid || 0 - tiles.firstgid);
             }
         }
 
