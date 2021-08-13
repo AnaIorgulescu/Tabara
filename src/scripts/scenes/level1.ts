@@ -15,7 +15,7 @@ export default class Level1 extends Phaser.Scene {
         this.load.tilemapTiledJSON('level1-tilemap', 'assets/level1.json');
         this.load.image('tileset-bush', 'assets/tiles/level1-bush.png');
         this.load.image('tileset-rocks', 'assets/tiles/level1-rocks.png');
-        this.load.image('tileset-tiles', 'assets/tiles/level1-tiles.png');
+        this.load.spritesheet('tileset-tiles', 'assets/tiles/level1-tiles.png', { frameWidth: 32, frameHeight: 32 });
 
         this.load.image('lvl1-background5', 'assets/wallpapers/magic-forest/background5.png');
         this.load.image('lvl1-background4', 'assets/wallpapers/magic-forest/background4.png');
@@ -63,7 +63,7 @@ export default class Level1 extends Phaser.Scene {
         let battlegroundLayer3 = map.createLayer('wallpaper3', background3);
         battlegroundLayer3.setScrollFactor(0.5, 1);
         let battlegroundLayer4 = map.createLayer('wallpaper4', background4);
-        battlegroundLayer4.setScrollFactor(0.7  , 1);
+        battlegroundLayer4.setScrollFactor(0.7, 1);
         let battlegroundLayer5 = map.createLayer('wallpaper5', background5);
         battlegroundLayer5.setScrollFactor(0.9, 1);
 
@@ -80,6 +80,14 @@ export default class Level1 extends Phaser.Scene {
         groundLayer.setCollisionBetween(rocks.firstgid, rocks.firstgid + rocks.total, true);
         groundLayer.setCollisionBetween(bush.firstgid, bush.firstgid + bush.total, true);
         groundLayer.setCollisionBetween(tiles.firstgid, tiles.firstgid + tiles.total, true);
+
+        let objects = map.getObjectLayer('objects').objects;
+        let spikeGroup = this.physics.add.group({ immovable: true, allowGravity: false });
+        for (let object of objects) {
+            if (object.type == 'spike') {
+                let spike = spikeGroup.create(object.x, object.y, 'tileset-tiles', object.gid - tiles.firstgid);
+            }
+        }
 
         let foregroundLayer = map.createLayer('foreground', [rocks, bush, tiles]);
 
