@@ -10,7 +10,7 @@ export default class StartScreen extends Phaser.Scene {
         this.load.image('title20', 'assets/startscreen/level2-glow.png');
         this.load.image('title3', 'assets/startscreen/level3.png');
         this.load.image('title30', 'assets/startscreen/level3-glow.png');
-        this.load.image('bg', 'assets/bg.jpg');
+        this.load.image('bg', 'assets/bg.png');
     }
 
     create() {
