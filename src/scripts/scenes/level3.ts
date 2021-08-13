@@ -1,3 +1,4 @@
+import { GameObjects } from 'phaser';
 import Knight from '../objects/knight';
 
 export default class Level1 extends Phaser.Scene {
@@ -13,7 +14,7 @@ export default class Level1 extends Phaser.Scene {
         this.load.spritesheet('knight-double-jump-sprite', 'assets/knight/double-jump.png', { frameWidth: 171, frameHeight: 128 });
 
         this.load.tilemapTiledJSON('level3-tilemap', 'assets/level3.json');
-        this.load.image('tileset-bush', 'assets/tiles/level3-bush.png');
+        this.load.spritesheet('tileset-bush', 'assets/tiles/level3-bush.png', {frameWidth:32, frameHeight:32});
         this.load.image('tileset-trees', 'assets/tiles/level3-trees.png');
         this.load.image('tileset-tiles', 'assets/tiles/level3-tiles.png');
 
@@ -71,13 +72,27 @@ export default class Level1 extends Phaser.Scene {
 
         let backgroundLayer = map.createLayer('background', [trees, bush, tiles]);
 
-        let hero = new Knight(this, 100, 177);
+        let hero = new Knight(this, 20, 849);
         let groundLayer = map.createLayer('ground', [trees, bush, tiles]);
 
         this.physics.add.collider(hero, groundLayer);
         groundLayer.setCollisionBetween(trees.firstgid, trees.firstgid + trees.total, true);
         groundLayer.setCollisionBetween(bush.firstgid, bush.firstgid + bush.total, true);
         groundLayer.setCollisionBetween(tiles.firstgid, tiles.firstgid + tiles.total, true);
+
+        let objects = map.getObjectLayer('objects').objects;
+        let spikeGroup=this.physics.add.group({immovable:true,allowGravity:false});
+        for(let object of objects) {
+            if(object.type=='spike'){
+                let spike: Phaser.GameObjects.Sprite= spikeGroup.create(object.x, object.y, 'tileset-bush', (object.gid||0) - bush.firstgid);
+                spike.setOrigin(0, 1);
+                (spike.body as Phaser.Physics.Arcade.Body).setSize(22, 22);
+                (spike.body as Phaser.Physics.Arcade.Body).setOffset(5, 10);
+
+            }
+        }   
+        this.physics.add.overlap(hero,spikeGroup,hero.kill, undefined, hero)
+        
 
         let foregroundLayer = map.createLayer('foreground', [trees, bush, tiles]);
 
