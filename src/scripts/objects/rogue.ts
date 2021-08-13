@@ -4,11 +4,19 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
     rightKey: Phaser.Input.Keyboard.Key;
     leftkey: Phaser.Input.Keyboard.Key;
     upkey: Phaser.Input.Keyboard.Key;
+
     herostate: String;
     animstate: String;
 
+    initialX: number;
+    initialY: number;
+
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'rogue');
+
+        this.initialX = x;
+        this.initialY = y;
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -28,6 +36,11 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
+
+        if (this.herostate == 'dead') {
+            return;
+        }
+
         if (this.rightKey.isDown) {
             (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(300, 500);
             (this.body as Phaser.Physics.Arcade.Body).setAccelerationX(300);
@@ -75,6 +88,25 @@ export default class Rogue extends Phaser.GameObjects.Sprite {
         if (this.herostate == 'double-jump' && this.animstate != 'double-jump') {
             this.anims.play('rogue-double-jump-anim');
             this.animstate = 'double-jump';
+        }
+    }
+
+    kill() {
+        if (this.herostate != 'dead') {
+            this.animstate = 'dead';
+            this.herostate = 'dead';
+            this.anims.play('rogue-death-anim');
+            (this.body as Phaser.Physics.Arcade.Body).stop();
+            this.once(
+                Phaser.Animations.Events.ANIMATION_COMPLETE,
+                () => {
+                    this.setX(this.initialX);
+                    this.setY(this.initialY);
+                    (this.body as Phaser.Physics.Arcade.Body).updateFromGameObject();
+                    this.herostate = 'idle';
+                },
+                this
+            );
         }
     }
 }
