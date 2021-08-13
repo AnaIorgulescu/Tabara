@@ -11,10 +11,11 @@ export default class Level2 extends Phaser.Scene {
         this.load.spritesheet('rogue-walk-sprite', 'assets/rogue/walk.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('rogue-jump-sprite', 'assets/rogue/jump.png', { frameWidth: 171, frameHeight: 128 });
         this.load.spritesheet('rogue-double-jump-sprite', 'assets/rogue/double-jump.png', { frameWidth: 171, frameHeight: 128 });
+        this.load.spritesheet('rogue-death-sprite', 'assets/rogue/death.png', { frameWidth: 171, frameHeight: 128 });
 
         this.load.tilemapTiledJSON('level2-tilemap', 'assets/level2.json');
         this.load.image('tileset-details', 'assets/tiles/level2-details.png');
-        this.load.image('tileset-tiles', 'assets/tiles/level2-tiles.png');
+        this.load.spritesheet('tileset-tiles', 'assets/tiles/level2-tiles.png', { frameWidth: 32, frameHeight: 32 });
 
         this.load.image('lvl1-background4', 'assets/wallpapers/dark-forest/background4.png');
         this.load.image('lvl1-background3', 'assets/wallpapers/dark-forest/background3.png');
@@ -47,6 +48,12 @@ export default class Level2 extends Phaser.Scene {
             frameRate: 20,
             repeat: 0
         });
+        this.anims.create({
+            key: 'rogue-death-anim',
+            frames: this.anims.generateFrameNumbers('rogue-death-sprite', {}),
+            frameRate: 10,
+            repeat: 0
+        });
         let map = this.make.tilemap({ key: 'level2-tilemap' });
 
         let background4 = map.addTilesetImage('wallpaper4', 'lvl1-background4');
@@ -76,13 +83,16 @@ export default class Level2 extends Phaser.Scene {
         groundLayer.setCollisionBetween(tiles.firstgid, tiles.firstgid + tiles.total, true);
 
         let objects = map.getObjectLayer('objects').objects;
-        let spikeGroup = this.physics.add.group({immovable: true, allowGravity: false})
+        let spikeGroup = this.physics.add.group({ immovable: true, allowGravity: false });
         for (let object of objects) {
-          if(object.type == 'spike'){
-            let spike = spikeGroup.create(object.x, object.y, 'tileset-tiles', object.gid||0 - tiles.firstgid);
-          }
+            if (object.type == 'spike') {
+                let spike: Phaser.GameObjects.Sprite = spikeGroup.create(object.x, object.y, 'tileset-tiles', (object.gid || 0) - tiles.firstgid);
+                spike.setOrigin(0, 1);
+                (spike.body as Phaser.Physics.Arcade.Body).setSize(22, 22);
+                (spike.body as Phaser.Physics.Arcade.Body).setOffset(5, 10);
+            }
         }
-
+        this.physics.add.overlap(hero, spikeGroup, hero.kill, undefined, hero);
 
         let foregroundLayer = map.createLayer('foreground', [details, tiles]);
 
