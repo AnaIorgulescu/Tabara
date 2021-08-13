@@ -1,1 +1,8 @@
-"@yandeu/prettier-config"
+{
+    "trailingComma": "none",
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "printWidth": 180
+}
