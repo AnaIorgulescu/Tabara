@@ -18,11 +18,11 @@ export default class Level1 extends Phaser.Scene {
         this.load.image('tileset-rocks', 'assets/tiles/level1-rocks.png');
         this.load.spritesheet('tileset-tiles', 'assets/tiles/level1-tiles.png', { frameWidth: 32, frameHeight: 32 });
 
-        this.load.image('lvl1-background5', 'assets/wallpapers/magic-forest/background5.png');
-        this.load.image('lvl1-background4', 'assets/wallpapers/magic-forest/background4.png');
-        this.load.image('lvl1-background3', 'assets/wallpapers/magic-forest/background3.png');
-        this.load.image('lvl1-background2', 'assets/wallpapers/magic-forest/background2.png');
-        this.load.image('lvl1-background1', 'assets/wallpapers/magic-forest/background1.png');
+        this.load.image('lvl1-background5', 'assets/wallpapers/the shadow forest/background5.png');
+        this.load.image('lvl1-background4', 'assets/wallpapers/the shadow forest/background4.png');
+        this.load.image('lvl1-background3', 'assets/wallpapers/the shadow forest/background3.png');
+        this.load.image('lvl1-background2', 'assets/wallpapers/the shadow forest/background2.png');
+        this.load.image('lvl1-background1', 'assets/wallpapers/the shadow forest/background1.png');
     }
     create() {
         this.anims.create({
